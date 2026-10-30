@@ -9,7 +9,7 @@ import { writeFile, readFile } from "node:fs/promises";
 
 const CATALOG = "https://awesome-dsh-plugin.com/plugins.json";
 const UA = "dsh-trend-index/1.0";
-const OUT = new URL("./index.json", import.meta.url);
+const OUT = new URL(process.env.OUT_DIR ? `../${process.env.OUT_DIR}/index.json` : "./index.json", import.meta.url);
 
 const now = Math.floor(Date.now() / 1000);
 const dayOf = (iso) => (Date.now() - Date.parse(iso)) / 86400e3;

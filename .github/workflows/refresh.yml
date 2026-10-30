@@ -1,0 +1,76 @@
+name: refresh index
+
+on:
+  schedule:
+    # 每天 UTC 18:00（北京时间 02:00），本机不在线也能跑
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # shas.json 是增量缓存：上次解析过的 commit SHA 直接复用，
+      # 放在 data 分支上，每次构建都取回来。
+      - name: Restore sha cache
+        run: |
+          git fetch origin data --depth 1 || true
+          git show origin/data:shas.json > shas.json 2>/dev/null || echo '{}' > shas.json
+          echo "cached shas: $(node -e 'console.log(Object.keys(JSON.parse(require("fs").readFileSync("shas.json","utf8"))).length)')"
+
+      - name: Build index
+        env:
+          MAX_GIT: 4000
+          MIN_GIT_STARS: 5
+        run: node build.mjs
+
+      # 护栏：抓取大面积失败时索引会缩水，宁可保留上一版也不发布残缺数据
+      - name: Guard against shrink
+        id: guard
+        run: |
+          git fetch origin data --depth 1 || true
+          if git show origin/data:index.json > prev.json 2>/dev/null; then
+            prev=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("prev.json","utf8")).plugins.length)')
+            now=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("index.json","utf8")).plugins.length)')
+            echo "prev=$prev now=$now"
+            # 允许 10% 的自然波动（插件被删除等），超过就判定为抓取故障
+            if [ "$now" -lt $(( prev * 90 / 100 )) ]; then
+              echo "shrink guard tripped: $prev -> $now"
+              exit 1
+            fi
+          else
+            echo "no previous index, first run"
+          fi
+        shell: bash
+
+      - name: Publish to data branch
+        run: |
+          set -e
+          mkdir -p /tmp/out
+          cp index.json shas.json README.md /tmp/out/
+
+          # 数据分支每天重建为一个提交：raw 地址永远只暴露最新版，
+          # 仓库历史不会因为每天一次 4.6MB 提交而无限膨胀。
+          cd /tmp/out
+          git init -q -b data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "data: $(date -u +%Y-%m-%dT%H:%MZ) plugins=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("index.json","utf8")).plugins.length)')"
+          git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
