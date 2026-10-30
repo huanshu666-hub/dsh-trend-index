@@ -5,6 +5,11 @@ on:
     # 每天 UTC 18:00（北京时间 02:00），本机不在线也能跑
     - cron: "0 18 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "build.mjs"
+      - ".github/workflows/refresh.yml"
 
 permissions:
   contents: write
