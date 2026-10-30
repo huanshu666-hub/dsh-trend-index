@@ -9,6 +9,8 @@ on:
     branches: [main]
     paths:
       - "build.mjs"
+      - "score-model.mjs"
+      - "dashboard/**"
       - ".github/workflows/refresh.yml"
 
 permissions:
@@ -62,11 +64,19 @@ jobs:
           fi
         shell: bash
 
+      # 控制台只是 index.json 的另一种视图：数据来自同一个构建产物，
+      # 因此必须和 index.json 一起发布，才不会出现页面比索引旧一版的情况。
+      - name: Build dashboard data
+        run: node dashboard/prep.mjs
+
       - name: Publish to data branch
         run: |
           set -e
           mkdir -p /tmp/out
           cp index.json shas.json README.md /tmp/out/
+          # 控制台放在分支根目录：把 GitHub Pages 的源设成 data 分支，
+          # 根路径就是一个可直接打开的页面，index.html 里的 ./data.json 也正好同级。
+          cp dashboard/index.html dashboard/data.json /tmp/out/
 
           # 数据分支每天重建为一个提交：raw 地址永远只暴露最新版，
           # 仓库历史不会因为每天一次 4.6MB 提交而无限膨胀。

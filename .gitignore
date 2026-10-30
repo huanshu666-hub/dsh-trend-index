@@ -1,3 +1,6 @@
 catalog.json
 node_modules/
 index.slim.json
+# 控制台数据是 prep.mjs 的派生物，2.2MB。CI 每次都重新生成，
+# 提交它只会让 main 里的副本和 index.json 悄悄不同步。
+dashboard/data.json

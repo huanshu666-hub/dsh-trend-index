@@ -6,6 +6,7 @@
 // Git sources: format 1 needs a pinned 40-hex commit; we read it from the
 //              public commits.atom feed, which consumes NO GitHub API quota.
 import { writeFile, readFile } from "node:fs/promises";
+import { scoreOf } from "./score-model.mjs";
 
 const CATALOG = "https://awesome-dsh-plugin.com/plugins.json";
 const UA = "dsh-trend-index/1.0";
@@ -40,15 +41,15 @@ const P = catalog.plugins;
 const CATEGORIES = Object.fromEntries(
   Object.entries(catalog.categories || {}).map(([id, text]) => [id, { title: text }]),
 );
-function scoreOf(p) {
-  const stars = p.stars ?? 0;
-  const dl = p.downloads ?? 0;
-  const age = p.added ? Math.max(dayOf(p.added), 1) : 365;
-  const freshness = age <= 7 ? 3 : age <= 30 ? 2 : age <= 90 ? 1 : 0;
-  // downloads are per ~30d window: a strong signal of actual installs
-  return Math.round(stars * 0.6 + dl * 0.15 + freshness * 60 + Math.min(stars / age, 400) * 2);
-}
-for (const p of P) p._score = scoreOf(p);
+// score math lives in score-model.mjs; the catalog stores a publish date, so
+// turn it into an age in days here. downloads are per ~30d window: a strong
+// signal of actual installs.
+const toScoreInput = (p) => ({
+  stars: p.stars ?? 0,
+  downloads: p.downloads ?? 0,
+  age: p.added ? Math.max(dayOf(p.added), 1) : 365,
+});
+for (const p of P) p._score = scoreOf(toScoreInput(p));
 
 // ---- 3. pick the entries worth pinning shas for: everything npm-installable
 //      is free, git entries cost one atom fetch each.

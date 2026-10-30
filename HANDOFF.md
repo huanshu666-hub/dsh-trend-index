@@ -32,11 +32,17 @@ DSH 0.2.1 起支持「插件市场索引」：一个 JSON 文档，把自己塞�
 ```
 dsh-trend-index/
 ├── build.mjs                    生成器（唯一需要读懂的代码）
+├── score-model.mjs              热度分单一事实源，build.mjs 与 dashboard 共用
 ├── index.json                   构建产物（4.7MB，会随构建变化）
 ├── shas.json                    commit SHA 缓存（3613 条，必须提交）
 ├── README.md                    仓库说明
 ├── UPDATE.md                    更新方式
 ├── HANDOFF.md                   本文件
+├── dashboard/                   可视化控制台（纯静态，无构建步骤）
+│   ├── index.html               单文件页面，样式与脚本都在里面
+│   ├── prep.mjs                 index.json → data.json（图表专用扁平结构）
+│   ├── data.json                prep.mjs 的产物，2.2MB（已 .gitignore，本地生成）
+│   └── serve.mjs                零依赖本地静态服务器
 ├── .gitignore                   忽略 catalog.json（9.7MB 的中间缓存）
 └── .github/workflows/refresh.yml  每日自动构建
 ```
@@ -99,19 +105,17 @@ git add -A && git commit -m "refresh" && git push
 
 ### 想调整排序权重
 
-改 `build.mjs` 里的 `scoreOf()`：
+改 `score-model.mjs`——**这是权重的唯一出处**，`build.mjs` 和 `dashboard/prep.mjs` 都 import 它。不要在 `build.mjs` 里再写一份内联实现：两份实现一旦分叉，控制台画出来的分解就不再能解释索引里的分数。
 
 ```js
-function scoreOf(p) {
-  const stars = p.stars ?? 0;
-  const dl = p.downloads ?? 0;
-  const age = p.added ? Math.max(dayOf(p.added), 1) : 365;
-  const freshness = age <= 7 ? 3 : age <= 30 ? 2 : age <= 90 ? 1 : 0;
-  return Math.round(stars * 0.6 + dl * 0.15 + freshness * 60 + Math.min(stars / age, 400) * 2);
-}
+export const WEIGHTS = { stars: 0.6, downloads: 0.15, freshnessWeight: 60, momentumWeight: 2, momentumCap: 400 };
+// freshness 分档：≤7 天 3 分、≤30 天 2 分、≤90 天 1 分、更早 0 分
+// 总分 = stars*0.6 + downloads*0.15 + freshness*60 + min(stars/age, 400)*2
 ```
 
-改完 push 到 main 就会自动触发重建（工作流配了 `push` 触发器，只监听 `build.mjs` 和 workflow 文件本身）。
+`decompose()` 返回四个成分，控制台的堆叠条直接画它——所以调完权重，页面上的「为什么它排这里」会自动跟着变。
+
+改完 push 到 main 就会自动触发重建（工作流监听 `build.mjs`、`score-model.mjs`、`dashboard/**` 和 workflow 文件本身）。
 
 ### 想调整 GitHub-only 条目的门槛
 

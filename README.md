@@ -39,6 +39,31 @@ score = stars*0.6 + downloads*0.15 + freshness*60 + min(stars/age, 400)*2
 仅 GitHub 托管的条目要求 **≥5 star**。实测该区间 86% 的仓库不足 5 star，
 保留它们只会重复现有目录「凑数多」的老问题。
 
+## 可视化控制台
+
+索引里每个插件都有四股力量（star、下载量、新鲜度、动量）加权成的热度分，
+但一个数字说不清它为什么排在那个位置。控制台把每一行拆开画：
+
+- **榜首十二条** —— 每条记录的热度条是四个成分堆叠，比例差异就是排名差异的来源
+- **配方的代价** —— 公式四项在 4557 条真实语料上实际产生了什么形状（长尾、集中度、秩相关）
+- **二十三个分类** —— 按条目数的横条，npm 与仅 GitHub 双色
+- **长尾的形状** —— 双对数散点，没有 star 也没有下载量的点堆在左轴与下轴上
+- **全部条目** —— 可搜索（含中文）、可按列排序、可按分类与标签筛选的表
+
+纯静态、零依赖、无构建步骤：
+
+```bash
+node dashboard/prep.mjs    # index.json → dashboard/data.json
+node dashboard/serve.mjs   # http://127.0.0.1:4321/
+```
+
+必须走 HTTP 打开（`file://` 会被浏览器拦住 `fetch`）。
+
+想在线上看：Actions 每次构建都会重新生成 `data.json`，并与 `index.html`
+一起发到 `data` 分支根目录。所以只需在仓库设置里做一次性操作——
+Settings → Pages → Source 选 `data` 分支根目录。没开这一步时整站不存在，
+不影响 DSH 读 `index.json`。
+
 ## 数据来源
 
 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)
