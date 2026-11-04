@@ -112,13 +112,6 @@ await writeFile(SHA_FILE, JSON.stringify(Object.fromEntries([...SHA].map(([repo,
 console.log(`git shas: ${SHA.size}/${unique.length} pinned in ${Date.now() - t0}ms`);
 
 // ---- 4. assemble format-1 entries ----
-/** 3370 -> 3.4k, 2202599 -> 2.2M. GitHub's own scale, understood in both languages. */
-function compact(n) {
-  if (n >= 1e6) return `${(n / 1e6).toFixed(1).replace(/\.0$/, "")}M`;
-  if (n >= 1e3) return `${(n / 1e3).toFixed(1).replace(/\.0$/, "")}k`;
-  return String(n);
-}
-
 const SLUG = (s) => String(s)
   .toLowerCase()
   .replace(/[^a-z0-9._~-]+/g, "-")
@@ -199,15 +192,8 @@ for (const p of P) {
   if ((p.capabilities || []).length >= 5) labels.push("risky");
   for (const l of labels) stats.labelCounts[l] = (stats.labelCounts[l] || 0) + 1;
 
-  // The card renders title, labels, description (one clamped line) and a
-  // version/author/date meta line — sortKeys only feed the sort dropdown, so a
-  // star count is invisible unless folded into text the card actually shows.
-  // Labels would be the alternative, but they are a filter vocabulary: making
-  // 5000 unique "★3.4k" tags would bury the real ones.
-  const dlPart = dl > 0 ? `⬇ ${compact(dl)}` : null;
-  const head = (unit) => [`★ ${compact(stars)}`, dlPart, age < 900 ? `${age}${unit}` : null].filter(Boolean).join(" · ");
-  const en = `${head("d")} | ${(p.description?.en || "").trim().slice(0, 900) || String(p.name)}`;
-  const zh = `${head("天")} | ${(p.description?.zh || p.description?.en || "").trim().slice(0, 900) || String(p.name)}`;
+  const en = (p.description?.en || "").trim().slice(0, 900) || String(p.name);
+  const zh = (p.description?.zh || p.description?.en || "").trim().slice(0, 900) || String(p.name);
 
   plugins.push({
     name: final,

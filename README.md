@@ -68,20 +68,3 @@ Settings → Pages → Source 选 `data` 分支根目录。没开这一步时整
 
 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)
 的公开目录（每日刷新），本项目只做重排序、补 SHA、加热度元数据。
-
-## 卡片上的指标
-
-每个插件的描述开头带一行指标，因为 DSH 的插件卡片只渲染
-`title / labels / description / meta`，而 `sortKeys` 仅用于排序下拉——不写进描述就看不见：
-
-```
-★ 3.7k · ⬇ 2.6M · 46天 | billion-context官方版：上下文压缩插件…
-```
-
-| 符号 | 含义 |
-|---|---|
-| ★ | GitHub star 数 |
-| ⬇ | 近 30 天下载量 |
-| 天 / d | 上架距今天数 |
-
-数字按 k / M 缩写。中英双语各一份，天数单位随语言变化（天 / d）。
