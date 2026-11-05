@@ -127,10 +127,14 @@ const LABELS = {
   gitonly: { title: { en: "GitHub only", zh: "仅 GitHub" } },
   risky: { title: { en: "Broad capabilities", zh: "能力较广" } },
 };
+// Declaration order matters: the host's metric row shows the FIRST declared
+// sortKey as the big number on the card's gauge (downloads always ride along
+// as the secondary figure). stars first = users see ★ count + downloads at a
+// glance; score remains available in the sort dropdown.
 const SORTKEYS = {
-  score: { title: { en: "Trending score", zh: "热度分" }, order: "desc" },
   stars: { title: { en: "Stars", zh: "Star 数" }, order: "desc" },
   downloads: { title: { en: "Downloads (30d)", zh: "下载量（30 天）" }, order: "desc" },
+  score: { title: { en: "Trending score", zh: "热度分" }, order: "desc" },
   age: { title: { en: "Age (days)", zh: "上架天数" }, order: "asc" },
 };
 
@@ -206,7 +210,7 @@ for (const p of P) {
       category: cat,
       keywords: (p.capabilities || []).slice(0, 8),
       labels,
-      sortKeys: { score: p._score, stars, downloads: dl, age },
+      sortKeys: { stars, downloads: dl, score: p._score, age },
     },
     versions: [{ version, publishTimestamp: ts, source, engines: {} }],
   });
