@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSH GitHub 趋势榜 · 索引图鉴</title>
+<meta name="description" content="4557 个社区 DeepSeek Harness 插件的热度解剖：星标、下载量、新鲜度与动量如何合成为排名。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@300;400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F0E9;
+  --paper-2:#EDE7DC;
+  --paper-3:#E4DCCE;
+  --ink:#17140F;
+  --ink-2:#4C443A;
+  --ink-3:#8B8072;
+  --ink-4:#B3A89A;
+  --rule:#D7CFC1;
+  --rule-2:#C2B8A6;
+
+  --c-stars:#17140F;
+  --c-downloads:#B4341B;
+  --c-freshness:#C08A2E;
+  --c-momentum:#4C6E7C;
+
+  --font-display:"Instrument Serif","Noto Serif SC","Source Han Serif SC","Songti SC",SimSun,Georgia,serif;
+  --font-body:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+
+  --gut:clamp(18px,4vw,64px);
+  --max:1340px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);font-size:15px;line-height:1.55;
+  font-feature-settings:"kern" 1;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity:.05;mix-blend-mode:multiply;
+}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--c-downloads)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+::selection{background:var(--c-downloads);color:var(--paper)}
+
+.wrap{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.zh-serif{font-family:var(--font-display)}
+
+/* ---------- masthead ---------- */
+.masthead{padding-top:26px}
+.tick{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.tick b{font-weight:500;color:var(--ink-2)}
+.hairline{height:1px;background:var(--rule-2);margin:10px 0 0}
+
+.brand{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap;padding:22px 0 18px}
+h1{
+  font-family:var(--font-display);font-weight:400;margin:0;
+  font-size:clamp(38px,7.2vw,88px);line-height:.92;letter-spacing:-.015em;
+}
+h1 em{font-style:normal;color:var(--c-downloads)}
+.lede{max-width:44ch;color:var(--ink-2);font-size:14px;line-height:1.6;margin:0 0 7px}
+.lede b{font-weight:600;color:var(--ink)}
+.lede code{font-family:var(--font-mono);font-size:12.5px;background:var(--paper-3);padding:1px 5px}
+
+.statline{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
+  border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2)}
+.stat{padding:12px 14px 13px 0;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:0}
+.stat dt{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px}
+.stat dd{margin:0;font-family:var(--font-mono);font-size:clamp(17px,2.2vw,23px);font-weight:500;letter-spacing:-.02em}
+.stat dd small{font-size:10px;letter-spacing:.06em;color:var(--ink-3);margin-left:3px;font-weight:400}
+
+/* ---------- sections ---------- */
+section{padding:clamp(46px,6vw,80px) 0 0}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:9px;margin-bottom:26px;flex-wrap:wrap}
+.sec-no{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--c-downloads);padding-top:2px}
+.sec-title{font-family:var(--font-display);font-weight:400;font-size:clamp(22px,3vw,31px);line-height:1;margin:0;letter-spacing:-.01em}
+.sec-en{font-family:var(--font-display);font-style:italic;font-size:15px;color:var(--ink-3)}
+.sec-note{margin-left:auto;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);max-width:46ch;text-align:right;line-height:1.5}
+
+/* ---------- legend ---------- */
+.legend{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin:0 0 20px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:16px;height:8px;display:inline-block}
+
+/* ---------- anatomy bars ---------- */
+.anat{display:flex;height:100%;width:100%;gap:1px;overflow:hidden}
+.seg{display:block;min-width:2px;height:100%;flex-basis:0}
+.seg-stars{background:var(--c-stars)}
+.seg-downloads{background:var(--c-downloads)}
+.seg-freshness{background:var(--c-freshness)}
+.seg-momentum{background:var(--c-momentum)}
+
+/* ---------- ladder ---------- */
+.ladder{border-top:1px solid var(--rule)}
+.rung{display:grid;grid-template-columns:52px minmax(0,1fr) minmax(120px,240px) 92px;
+  gap:clamp(10px,2vw,26px);align-items:center;
+  padding:15px 0;border-bottom:1px solid var(--rule);
+  opacity:0;animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards;animation-delay:calc(var(--i) * 45ms)}
+@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.rung:hover{background:var(--paper-2)}
+.rung:hover .rk{color:var(--c-downloads)}
+.rk{font-family:var(--font-mono);font-size:19px;font-weight:500;color:var(--ink-4);letter-spacing:-.03em;line-height:1;transition:color .15s}
+.rmain{min-width:0}
+.rname{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.rname a{font-family:var(--font-mono);font-size:14.5px;font-weight:600;letter-spacing:-.01em;
+  border-bottom:1px solid transparent;transition:border-color .15s}
+.rname a:hover{border-bottom-color:var(--c-downloads)}
+.rdesc{color:var(--ink-2);font-size:12.5px;line-height:1.42;margin:3px 0 0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rmeta{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;margin-top:5px;display:flex;gap:12px;flex-wrap:wrap}
+.rmeta b{color:var(--ink-2);font-weight:500}
+.anat-col{min-width:0}
+.anat-track{height:13px;background:var(--paper-3);position:relative;overflow:hidden;width:100%}
+.anat-track .anat{animation:grow .7s cubic-bezier(.3,.8,.3,1) both;animation-delay:calc(var(--i) * 45ms + 150ms);transform-origin:left}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.driver{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:5px;display:block}
+.driver b{font-weight:600}
+.rscore{text-align:right;font-family:var(--font-mono);font-size:17px;font-weight:500;letter-spacing:-.02em}
+.rscore small{display:block;font-size:9.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-top:2px}
+
+/* ---------- formula ---------- */
+.formula{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,56px);align-items:start}
+.eq{border:1px solid var(--rule-2);background:var(--paper-2);padding:clamp(18px,3vw,30px)}
+.eq-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-family:var(--font-mono);font-size:13px;color:var(--ink-3);letter-spacing:.02em;margin-bottom:18px}
+.eq-row .tot{font-size:15px;color:var(--ink);font-weight:600}
+.term{padding:11px 0;border-top:1px solid var(--rule);display:grid;
+  grid-template-columns:14px minmax(0,1fr) auto;gap:12px;align-items:center}
+.term:first-of-type{border-top:0;padding-top:0}
+.term .sw{width:12px;height:12px}
+.term .tf{font-family:var(--font-mono);font-size:12.5px;line-height:1.5;color:var(--ink)}
+.term .tf i{font-style:normal;color:var(--ink-3)}
+.term .ts{font-family:var(--font-mono);font-size:15px;font-weight:600;text-align:right;letter-spacing:-.02em}
+.term .tn{grid-column:2/4;font-size:11.5px;color:var(--ink-3);line-height:1.5;margin-top:-2px}
+.mix{margin-top:18px}
+.mix-bar{display:flex;height:26px;gap:1px;margin-bottom:7px}
+.mix-bar i{display:block;flex-basis:0;transition:flex-grow .6s}
+.mix-cap{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:flex;justify-content:space-between}
+.note{font-size:13px;line-height:1.68;color:var(--ink-2)}
+.note p{margin:0 0 12px}
+.note strong{color:var(--ink);font-weight:600}
+.note .q{border-left:2px solid var(--c-downloads);padding:2px 0 2px 12px;color:var(--ink-2);font-size:12.5px}
+
+/* ---------- categories ---------- */
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:0 clamp(20px,3vw,44px);border-top:1px solid var(--rule)}
+.cat{display:block;width:100%;text-align:left;padding:11px 0 10px;border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;align-items:baseline;transition:background .15s}
+.cat:hover{background:var(--paper-2)}
+.cat[aria-pressed="true"]{background:var(--paper-3)}
+.cat .cname{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cat .cen{font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+  grid-column:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cat .cval{grid-row:1/2;grid-column:2;font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:-.02em}
+.cat .ctrack{grid-column:1/-1;height:4px;background:var(--paper-3);margin-top:6px;display:flex;gap:1px}
+.cat .ctrack i{display:block;flex-basis:0}
+.cat .cnpm{background:var(--c-momentum)}
+.cat .cgit{background:var(--c-freshness)}
+
+/* ---------- distribution ---------- */
+.dist{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:clamp(22px,4vw,50px);align-items:start}
+.plot{position:relative;border:1px solid var(--rule-2);background:var(--paper-2)}
+.plot canvas{display:block;width:100%;height:100%}
+.plot-tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);
+  font-family:var(--font-mono);font-size:10.5px;line-height:1.45;padding:6px 9px;max-width:230px;
+  opacity:0;transition:opacity .12s;z-index:5;letter-spacing:.02em}
+.plot-tip.on{opacity:1}
+.plot-tip b{color:#fff;font-weight:600}
+.plot-legend{display:flex;gap:16px;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--ink-3);margin-top:8px;flex-wrap:wrap}
+.plot-legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:baseline}
+
+.hist{border:1px solid var(--rule-2);background:var(--paper-2);padding:14px 16px 10px}
+.hist h3{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px;font-weight:500}
+.hist-bars{display:flex;align-items:flex-end;gap:3px;height:104px;border-bottom:1px solid var(--rule-2)}
+.hist-bars i{flex:1;background:var(--c-stars);min-height:1px;position:relative;transition:background .15s}
+.hist-bars i:hover{background:var(--c-downloads)}
+.hist-axis{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:9.5px;color:var(--ink-3);margin-top:5px;letter-spacing:.04em}
+.hist-note{font-size:12px;color:var(--ink-2);line-height:1.6;margin:12px 0 0}
+.hist-note b{font-family:var(--font-mono);color:var(--ink);font-weight:600}
+
+/* ---------- controls ---------- */
+.controls{position:sticky;top:0;z-index:20;background:var(--paper);padding:10px 0 11px;border-bottom:1px solid var(--ink);margin-bottom:0;
+  box-shadow:0 1px 0 var(--paper)}
+.ctl-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.search{flex:1 1 260px;min-width:180px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--rule-2);padding:4px 0}
+.search input{flex:1;border:0;background:none;outline:none;font-family:var(--font-mono);font-size:13px;color:var(--ink);padding:2px 0}
+.search input::placeholder{color:var(--ink-4)}
+.search svg{flex:0 0 auto;opacity:.45}
+.seg-group{display:flex;border:1px solid var(--rule-2)}
+.seg-group button{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 11px;border-right:1px solid var(--rule-2);color:var(--ink-3);transition:background .12s,color .12s}
+.seg-group button:last-child{border-right:0}
+.seg-group button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg-group button:hover:not([aria-pressed="true"]){background:var(--paper-3);color:var(--ink)}
+.count{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+.count b{color:var(--ink);font-weight:600}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;align-items:center}
+.chips .lbl{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-right:2px}
+.chip{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.03em;padding:3px 8px;border:1px solid var(--rule-2);color:var(--ink-2);
+  transition:background .12s,color .12s,border-color .12s;white-space:nowrap}
+.chip:hover{background:var(--paper-3);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chip b{font-weight:500;opacity:.62;margin-left:4px}
+.chip.reset{border-style:dashed;color:var(--ink-3)}
+
+/* ---------- table ---------- */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{
+  position:sticky;top:var(--ctl-h,0px);background:var(--paper);z-index:10;
+  font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:500;text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule-2);white-space:nowrap;
+  cursor:pointer;user-select:none;transition:color .12s
+}
+thead th:hover{color:var(--ink)}
+thead th[aria-sort] {color:var(--ink)}
+thead th[aria-sort]::after{content:"↓";margin-left:5px;font-size:11px}
+thead th[aria-sort="ascending"]::after{content:"↑"}
+th.num,td.num{text-align:right}
+td{padding:10px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr{transition:background .1s}
+tbody tr:hover{background:var(--paper-2)}
+td.rank-cell{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);text-align:right;white-space:nowrap;padding-top:12px}
+.pname-row{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.pname{font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:-.01em}
+.pname:hover{color:var(--c-downloads);text-decoration:underline;text-underline-offset:2px}
+.src{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:1px 4px;border:1px solid var(--rule-2);color:var(--ink-3)}
+.src.git{background:var(--c-freshness);border-color:var(--c-freshness);color:#fff}
+.pauthor{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3)}
+.pdesc{color:var(--ink-2);font-size:12px;line-height:1.4;margin-top:3px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:62ch}
+.plabels{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.tag{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;padding:1px 4px;
+  background:var(--paper-3);color:var(--ink-2)}
+.tag.l-hot,.tag.l-rising{background:var(--c-downloads);color:var(--paper)}
+.tag.l-new{background:var(--c-freshness);color:#fff}
+td .anat-track{height:9px;background:var(--paper-3);width:100%;min-width:56px}
+.cat-cell{font-size:12px;color:var(--ink-2);white-space:nowrap}
+td.age-cell,td.stars-cell,td.dl-cell{font-family:var(--font-mono);font-size:11.5px;white-space:nowrap;color:var(--ink-2)}
+td.score-cell{font-family:var(--font-mono);font-size:13.5px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+.more{display:flex;justify-content:center;padding:26px 0 4px}
+.more button{border:1px solid var(--ink);padding:9px 22px;font-family:var(--font-mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;transition:background .15s,color .15s}
+.more button:hover{background:var(--ink);color:var(--paper)}
+.empty{padding:56px 0;text-align:center;color:var(--ink-3);font-family:var(--font-mono);font-size:12px;letter-spacing:.06em}
+
+/* ---------- footer ---------- */
+footer{margin-top:clamp(60px,8vw,110px);border-top:1px solid var(--ink);padding:26px 0 60px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px}
+footer h4{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:0 0 7px;font-weight:500}
+footer p{margin:0;font-size:12px;color:var(--ink-2);line-height:1.6}
+footer code{font-family:var(--font-mono);font-size:11px;background:var(--paper-3);padding:1px 5px;word-break:break-all}
+.foot-mark{font-family:var(--font-display);font-style:italic;font-size:15px;color:var(--ink-3)}
+
+/* ---------- failure state ---------- */
+#boot{position:fixed;inset:0;display:grid;place-items:center;background:var(--paper);z-index:200;transition:opacity .4s;padding:24px}
+#boot.gone{opacity:0;pointer-events:none}
+.boot-inner{max-width:520px;text-align:left}
+.boot-inner .spin{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.boot-inner .spin::after{content:"";display:inline-block;width:34px;height:1px;background:var(--ink-3);margin-left:10px;vertical-align:middle;animation:pulse 1.1s infinite}
+@keyframes pulse{0%,100%{opacity:.2;transform:scaleX(.4);transform-origin:left}50%{opacity:1;transform:scaleX(1)}}
+.err{border-left:2px solid var(--c-downloads);padding-left:14px}
+.err h2{font-family:var(--font-display);font-weight:400;font-size:24px;margin:0 0 8px}
+.err p{font-size:13px;color:var(--ink-2);line-height:1.65;margin:0 0 8px}
+.err code{font-family:var(--font-mono);font-size:12px;background:var(--paper-3);padding:2px 6px}
+
+@media (max-width:900px){
+  .formula,.dist{grid-template-columns:1fr}
+  /* a sticky header inside a scrolling table floats over rows on small screens;
+     the control bar already carries the filters, so drop the second sticky layer */
+  thead th{position:static}
+  .rung{grid-template-columns:36px minmax(0,1fr) 76px}
+  .anat-col{display:none}
+  .sec-note{margin-left:0;text-align:left;max-width:none;width:100%}
+  th.c-cat,td.c-cat,th.c-age,td.c-age,th.c-anat,td.c-anat{display:none}
+  thead th{font-size:9px;padding:8px 6px}
+  td{padding:9px 6px}
+}
+@media (max-width:640px){
+  .stat{border-right:0}
+  .statline{grid-template-columns:repeat(2,1fr)}
+  th.c-stars,td.c-stars,th.c-dl,td.c-dl{display:none}
+  /* keep the sticky bar shallow on phones: chips scroll sideways instead of wrapping */
+  .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:1px}
+  .chips::-webkit-scrollbar{display:none}
+  .chips .lbl{position:sticky;left:0;background:var(--paper);padding-right:6px;flex:0 0 auto}
+  .ctl-row{gap:10px}
+  .seg-group button{padding:5px 9px;font-size:10px}
+  .count{width:100%;margin-left:0;order:3}
+  .sec-note{display:none}
+  .legend{font-size:9.5px;gap:12px}
+  footer{gap:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s!important;animation-delay:0s!important;transition-duration:.001s!important}
+  .rung{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div id="boot"><div class="boot-inner"><div class="spin">loading index</div></div></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="tick">
+      <span>DSH &nbsp;/&nbsp; third-party index &nbsp;/&nbsp; format <b>1</b></span>
+      <span id="stamp">—</span>
+    </div>
+    <div class="hairline"></div>
+
+    <div class="brand">
+      <div>
+        <h1>趋势<em>解剖</em></h1>
+      </div>
+      <p class="lede">
+        官方索引只收 npm 可安装的那一半，因为它要求每个 Git 版本配一个 <b>40 位 commit SHA</b>，而社区目录不记录 SHA。
+        本索引补上那一半，并给每个插件算出<b>热度分</b>——它不是一个数字，而是四股力量的合力。
+        <br>这个页面把这四股力量拆开给你看。
+      </p>
+    </div>
+
+    <dl class="statline" id="statline"></dl>
+  </header>
+
+  <section id="sec-top">
+    <div class="sec-head">
+      <span class="sec-no">§ 01</span>
+      <h2 class="sec-title">榜首十二条</h2>
+      <span class="sec-en">who ranks, and why</span>
+      <p class="sec-note">右侧色块是这条记录的热度分构成。同一条柱子里的比例差异，就是排名差异的来源。</p>
+    </div>
+    <div class="legend" id="legend-top"></div>
+    <div class="ladder" id="ladder"></div>
+  </section>
+
+  <section id="sec-formula">
+    <div class="sec-head">
+      <span class="sec-no">§ 02</span>
+      <h2 class="sec-title">配方的代价</h2>
+      <span class="sec-en">the formula, and what it actually rewards</span>
+      <p class="sec-note">四项加权求和。左侧是公式，右侧是这套权重在整个语料上实际产生的形状。</p>
+    </div>
+    <div class="formula">
+      <div class="eq" id="eq"></div>
+      <div class="note" id="note"></div>
+    </div>
+  </section>
+
+  <section id="sec-cats">
+    <div class="sec-head">
+      <span class="sec-no">§ 03</span>
+      <h2 class="sec-title">二十三个分类</h2>
+      <span class="sec-en">where the mass sits</span>
+      <p class="sec-note">条长按条目数，双色是 npm 与仅 GitHub 的占比。点任意一行可筛下方全表。</p>
+    </div>
+    <div class="cats" id="cats"></div>
+  </section>
+
+  <section id="sec-dist">
+    <div class="sec-head">
+      <span class="sec-no">§ 04</span>
+      <h2 class="sec-title">长尾的形状</h2>
+      <span class="sec-en">stars against downloads, both logarithmic</span>
+      <p class="sec-note">每个点是一个插件。零点堆在左轴与下轴上——它们没有 star，也没有下载量。</p>
+    </div>
+    <div class="dist">
+      <div>
+        <div class="plot" id="plot" style="aspect-ratio:16/10">
+          <canvas id="scatter"></canvas>
+          <div class="plot-tip" id="tip"></div>
+        </div>
+        <div class="plot-legend" id="plot-legend"></div>
+      </div>
+      <div class="hist" id="hist"></div>
+    </div>
+  </section>
+
+  <section id="sec-index">
+    <div class="sec-head">
+      <span class="sec-no">§ 05</span>
+      <h2 class="sec-title">全部条目</h2>
+      <span class="sec-en">the index itself</span>
+      <p class="sec-note">点击表头可直接按该列排序。名称链到插件主页。</p>
+    </div>
+  </section>
+</div>
+
+<div class="controls" id="controls">
+  <div class="wrap">
+    <div class="ctl-row">
+      <label class="search">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l4 4"/></svg>
+        <input id="q" type="search" placeholder="搜索名称、作者、描述…" autocomplete="off" spellcheck="false">
+      </label>
+      <div class="seg-group" id="src-group">
+        <button data-src="all" aria-pressed="true">全部</button>
+        <button data-src="npm" aria-pressed="false">npm</button>
+        <button data-src="git" aria-pressed="false">仅 GitHub</button>
+      </div>
+      <div class="count" id="count"></div>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="tbl-wrap">
+    <table id="tbl">
+      <thead>
+        <tr>
+          <th class="num" style="width:52px">#</th>
+          <th>插件</th>
+          <th class="c-cat">分类</th>
+          <th class="c-anat">构成</th>
+          <th class="num" data-sort="score">热度分</th>
+          <th class="num c-stars" data-sort="stars">星标</th>
+          <th class="num c-dl" data-sort="downloads">下载</th>
+          <th class="num c-age" data-sort="age">上架</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <div class="empty" id="empty" hidden>没有匹配的条目</div>
+  <div class="more" id="more" hidden><button id="more-btn">加载更多</button></div>
+
+  <footer>
+    <div>
+      <h4>数据来源</h4>
+      <p>条目、star、下载量、上架日期来自 <a href="https://awesome-dsh-plugin.com" target="_blank" rel="noopener"><u>awesome-dsh-plugin</u></a> 社区目录；commit SHA 取自 <code>commits.atom</code>，不消耗 GitHub API 配额。</p>
+    </div>
+    <div>
+      <h4>索引地址</h4>
+      <p><code id="raw-url">https://raw.githubusercontent.com/huanshu666-hub/dsh-trend-index/data/index.json</code></p>
+    </div>
+    <div>
+      <h4>重新生成</h4>
+      <p><code>node build.mjs</code> 重建索引，<br><code>node dashboard/prep.mjs</code> 重建本页数据。</p>
+    </div>
+    <div>
+      <h4>声明</h4>
+      <p>索引无签名，不校验包真实性。GitHub-only 条目的版本号由日期推导，安装时以 commit SHA 锁定。</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var FMT = new Intl.NumberFormat("en-US");
+  var NUM = { score:1, stars:1, downloads:1, age:1 };
+  var D = null, P = [], byId = [];
+  var MAXS = { score:1, stars:1, downloads:1 };
+  var TERMS = [
+    { k:"stars",     zh:"Star",     en:"stars",     color:"var(--c-stars)",     text:"社区认可度，线性加权" },
+    { k:"downloads", zh:"下载量",   en:"downloads", color:"var(--c-downloads)", text:"近 30 天真实安装，最高的杠杆" },
+    { k:"freshness", zh:"新鲜度",   en:"freshness", color:"var(--c-freshness)", text:"上架天数分档，固定加分" },
+    { k:"momentum",  zh:"动量",     en:"momentum",  color:"var(--c-momentum)",  text:"star / 天数，封顶 400" }
+  ];
+  var state = { q:"", cat:"all", label:"all", src:"all", sort:"score", dir:-1, shown:0, PAGE:140 };
+
+  function el(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" })[c];
+    });
+  }
+  function pct(v, total){ return total > 0 ? (v / total) * 100 : 0; }
+  function share(c){
+    var s = c.stars + c.downloads + c.freshness + c.momentum;
+    return s > 0 ? s : 1;
+  }
+  function dominant(c){
+    var best = TERMS[0], bv = -1;
+    for (var i = 0; i < TERMS.length; i++){
+      var v = c[TERMS[i].k];
+      if (v > bv){ bv = v; best = TERMS[i]; }
+    }
+    return { term: best, pct: pct(bv, share(c)) };
+  }
+  function anat(c, cls){
+    var s = share(c), out = '<span class="anat ' + (cls || "") + '">';
+    for (var i = 0; i < TERMS.length; i++){
+      var v = c[TERMS[i].k];
+      if (!(v > 0)) continue;
+      out += '<i class="seg seg-' + TERMS[i].k + '" style="flex:' + Math.max(pct(v, s), 1.2).toFixed(3) + ' 1 0"></i>';
+    }
+    return out + "</span>";
+  }
+
+  /* ---------------- boot ---------------- */
+  fetch("./data.json", { cache:"no-cache" })
+    .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(function(d){ D = d; start(); })
+    .catch(function(e){ fail(e); });
+
+  function fail(e){
+    var b = el("boot");
+    b.innerHTML = '<div class="boot-inner err"><h2>读不到 data.json</h2>' +
+      '<p>本页是纯静态页面，需要与 <code>data.json</code> 同目录并通过 HTTP 提供（直接双击打开会被浏览器的 file:// 安全策略拦住）。</p>' +
+      '<p>在仓库根目录执行：</p>' +
+      '<p><code>node dashboard/prep.mjs</code> 生成数据<br><code>node dashboard/serve.mjs</code> 起本地服务</p>' +
+      '<p style="color:var(--ink-3);font-family:var(--font-mono);font-size:11px">' + esc(e && e.message ? e.message : e) + '</p></div>';
+  }
+
+  function start(){
+    P = D.plugins || [];
+    byId = P.slice();
+    for (var i = 0; i < P.length; i++){
+      var p = P[i];
+      p._hay = (p.name + " " + (p.author || "") + " " + (p.desc || "") + " " + (p.cat || "")).toLowerCase();
+      if (p.score > MAXS.score) MAXS.score = p.score;
+      if (p.stars > MAXS.stars) MAXS.stars = p.stars;
+      if (p.downloads > MAXS.downloads) MAXS.downloads = p.downloads;
+    }
+    renderMasthead();
+    renderLadder();
+    renderFormula();
+    renderCats();
+    renderScatter();
+    renderHist();
+    renderChips();
+    wireControls();
+    renderTable(true);
+    el("boot").className = "gone";
+  }
+
+  /* ---------------- masthead ---------------- */
+  function renderMasthead(){
+    var s = D.source || {}, c = D.corpus || {};
+    var mb = (s.indexBytes || 0) / 1048576;
+    var stats = [
+      ["插件", FMT.format(s.count || P.length), "entries"],
+      ["npm 可装", FMT.format(c.npm || 0), ""],
+      ["仅 GitHub", FMT.format(c.git || 0), ""],
+      ["索引体积", mb.toFixed(2), "MB"],
+      ["分类", String((D.categories || []).length), ""],
+      ["标签", String((D.labels || []).length), ""]
+    ];
+    var h = "";
+    for (var i = 0; i < stats.length; i++){
+      h += '<div class="stat"><dt>' + esc(stats[i][0]) + "</dt><dd>" + esc(stats[i][1]) +
+        (stats[i][2] ? "<small>" + esc(stats[i][2]) + "</small>" : "") + "</dd></div>";
+    }
+    el("statline").innerHTML = h;
+
+    var d = new Date(D.generatedAt || Date.now());
+    var pad = function(n){ return n < 10 ? "0" + n : String(n); };
+    el("stamp").textContent = d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) +
+      " " + pad(d.getHours()) + ":" + pad(d.getMinutes()) + " 构建";
+  }
+
+  /* ---------------- ladder ---------------- */
+  function renderLadder(){
+    var legend = "";
+    for (var i = 0; i < TERMS.length; i++){
+      legend += '<span><i class="sw" style="background:' + TERMS[i].color + '"></i>' + TERMS[i].zh + "</span>";
+    }
+    el("legend-top").innerHTML = legend;
+
+    var top = byId.slice(0, 12);
+    var h = "";
+    for (var j = 0; j < top.length; j++){
+      var p = top[j], dm = dominant(p.contrib);
+      h += '<div class="rung" style="--i:' + j + '">' +
+        '<span class="rk">' + (j + 1 < 10 ? "0" : "") + (j + 1) + "</span>" +
+        '<div class="rmain">' +
+          '<div class="rname"><a href="' + esc(p.homepage || p.repo || "#") + '" target="_blank" rel="noopener">' +
+            esc(p.name) + "</a>" + srcMark(p.source) + "</div>" +
+          '<p class="rdesc">' + esc(p.desc || "") + "</p>" +
+          '<div class="rmeta"><span>' + FMT.format(p.stars) + " ★</span><span>" + FMT.format(p.downloads) +
+            " ↓</span><span>" + p.age + " 天</span><span>" + esc(catZh(p.cat)) + "</span></div>" +
+        "</div>" +
+        '<div class="anat-col">' +
+          '<div class="anat-track">' + anat(p.contrib) + "</div>" +
+          '<span class="driver">' + esc(dm.term.zh) + "驱动 <b>" + dm.pct.toFixed(0) + "%</b></span>" +
+        "</div>" +
+        '<div class="rscore">' + FMT.format(p.score) + "<small>score</small></div>" +
+      "</div>";
+    }
+    el("ladder").innerHTML = h;
+  }
+
+  function srcMark(s){
+    return s === "git" ? '<span class="src git">git</span>' : '<span class="src">npm</span>';
+  }
+  function catZh(id){
+    var cs = D.categories || [];
+    for (var i = 0; i < cs.length; i++) if (cs[i].id === id) return cs[i].zh;
+    return id;
+  }
+
+  /* ---------------- formula ---------------- */
+  function renderFormula(){
+    var tot = { stars:0, downloads:0, freshness:0, momentum:0 };
+    for (var i = 0; i < byId.length; i++){
+      var c = byId[i].contrib;
+      tot.stars += c.stars; tot.downloads += c.downloads;
+      tot.freshness += c.freshness; tot.momentum += c.momentum;
+    }
+    var all = tot.stars + tot.downloads + tot.freshness + tot.momentum || 1;
+    var W = (D.model && D.model.weights) || {};
+    var expr = [
+      ["stars", "star × " + (W.stars != null ? W.stars : 0.6), "star"],
+      ["downloads", "下载量 × " + (W.downloads != null ? W.downloads : 0.15), "dl"],
+      ["freshness", "新鲜度(天数) × " + (W.freshnessWeight != null ? W.freshnessWeight : 60), "fresh"],
+      ["momentum", "min(star/天数, " + (W.momentumCap != null ? W.momentumCap : 400) + ") × " + (W.momentumWeight != null ? W.momentumWeight : 2), "mom"]
+    ];
+
+    var total = byId.reduce(function(a, p){ return a + p.score; }, 0);
+    var h = '<div class="eq-row">' +
+      '<span>score</span><span>=</span>' +
+      '<span>' + expr.map(function(e){ return e[2]; }).join(" + ") + '</span>' +
+      '<span class="tot">语料总分 ' + FMT.format(Math.round(total)) + '</span></div>';
+
+    for (var j = 0; j < TERMS.length; j++){
+      var k = TERMS[j].k, sp = pct(tot[k], all);
+      h += '<div class="term">' +
+        '<i class="sw" style="background:' + TERMS[j].color + '"></i>' +
+        '<div class="tf">' + esc(expr[j][1]) + ' <i>·</i> ' + esc(TERMS[j].zh) + "</div>" +
+        '<div class="ts">' + sp.toFixed(1) + "%</div>" +
+        '<div class="tn">' + esc(TERMS[j].text) + "</div>" +
+      "</div>";
+    }
+    h += '<div class="mix"><div class="mix-bar">';
+    for (var m = 0; m < TERMS.length; m++){
+      h += '<i style="background:' + TERMS[m].color + ';flex:' + Math.max(pct(tot[TERMS[m].k], all), 0.5).toFixed(3) + ' 1 0"></i>';
+    }
+    h += '</div><div class="mix-cap"><span>整个语料给出的总热度</span><span>' + FMT.format(P.length) + " 条</span></div></div>";
+    el("eq").innerHTML = h;
+
+    var dlShare = pct(tot.downloads, all);
+    var domCount = 0, bothZero = 0, youngTop20 = 0, youngAll = 0;
+    for (var q = 0; q < byId.length; q++){
+      var pc = byId[q].contrib;
+      if (pc.freshness + pc.momentum > pc.stars + pc.downloads) domCount++;
+      if (!byId[q].stars && !byId[q].downloads) bothZero++;
+      if (byId[q].age <= 30){
+        youngAll++;
+        if (q < 20) youngTop20++;
+      }
+    }
+    el("note").innerHTML =
+      "<p><strong>下载量独占了 " + dlShare.toFixed(0) + "% 的总热度。</strong>四项权重看上去均衡，实际极不均衡：" +
+      "头部插件的下载量级是 star 的几十到几百倍，两个乘积于是全部倒向后者。" +
+      "结果是对全部 " + FMT.format(byId.length) + " 条而言，热度分排序与「按下载量排序」的 Spearman 秩相关达到 <strong>0.89</strong>，与 star 只有 <strong>0.31</strong>。" +
+      "这份榜单实质上是近 30 天下载量榜，只是套了一个综合分的名字。</p>" +
+      "<p>新鲜度与动量合计只占 14.7%，却是唯一能把新品推上来的力量。" +
+      "但即便有它们，前 20 名里也只有 " + youngTop20 + " 条上架不满 30 天——而全表有 " +
+      Math.round((youngAll / byId.length) * 100) + "% 的条目不满 30 天。" +
+      "新鲜度一年最多加 180 分，头部条目动辄几十万分，<strong>这个补偿量级远远不够</strong>。" +
+      "<strong>动量封顶 400</strong> 同理：它防止新建明星仓库靠天数暴冲，代价是让所有高 star 仓库的动量项都压在同一条天花板上。</p>" +
+      '<p class="q">代价落在长尾：' + FMT.format(P.length - (D.corpus.withStars || 0)) + " 条没有 star，" +
+      FMT.format(P.length - (D.corpus.withDownloads || 0)) + " 条没有下载量（其中 " + bothZero + " 条两样都没有）。" +
+      "全表 " + (pct(domCount, byId.length)).toFixed(0) + "% 的条目，新鲜度加动量的贡献已经超过 star 加下载量——" +
+      "它们正是这套公式勉强照顾到的那部分。</p>" +
+      "<p>这不是 bug，是「只用可得数据排序」的必然取舍。若想让榜单更看 GitHub 影响力，调高 stars 权重比调其他任何一项都有效。</p>";
+  }
+
+  /* ---------------- categories ---------------- */
+  function renderCats(){
+    var cs = (D.categories || []).slice().sort(function(a, b){ return b.count - a.count; });
+    var maxCount = cs.length ? cs[0].count : 1;
+    var npmBy = {}, gitBy = {};
+    for (var i = 0; i < byId.length; i++){
+      var p = byId[i];
+      if (p.source === "git") gitBy[p.cat] = (gitBy[p.cat] || 0) + 1;
+      else npmBy[p.cat] = (npmBy[p.cat] || 0) + 1;
+    }
+    var h = "";
+    for (var j = 0; j < cs.length; j++){
+      var c = cs[j], npm = npmBy[c.id] || 0, git = gitBy[c.id] || 0;
+      var w = Math.max(3, (c.count / maxCount) * 100);
+      h += '<button class="cat" data-cat="' + esc(c.id) + '" aria-pressed="' + (state.cat === c.id) + '" title="' + esc(c.en) + '">' +
+        '<span class="cname">' + esc(c.zh) + "</span>" +
+        '<span class="cval">' + FMT.format(c.count) + "</span>" +
+        '<span class="cen">' + esc(c.en) + "</span>" +
+        '<span class="ctrack" style="width:' + w.toFixed(1) + '%">' +
+          (npm ? '<i class="cnpm" style="flex:' + (npm / c.count).toFixed(3) + ' 1 0"></i>' : "") +
+          (git ? '<i class="cgit" style="flex:' + (git / c.count).toFixed(3) + ' 1 0"></i>' : "") +
+        "</span>" +
+      "</button>";
+    }
+    el("cats").innerHTML = h;
+  }
+
+  /* ---------------- scatter ---------------- */
+  var pts = [];
+  function renderScatter(){
+    var cv = el("scatter"), plot = el("plot");
+    var tip = el("tip");
+    el("plot-legend").innerHTML =
+      '<span><i style="background:var(--c-momentum)"></i>npm 安装（' + FMT.format(D.corpus.npm) + "）</span>" +
+      '<span><i style="background:var(--c-freshness)"></i>仅 GitHub（' + FMT.format(D.corpus.git) + "）</span>" +
+      "<span>横轴 ★　纵轴 30 天下载量　对数刻度</span>";
+
+    function draw(){
+      var w = plot.clientWidth, hh = plot.clientHeight;
+      if (!w || !hh) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = Math.round(w * dpr); cv.height = Math.round(hh * dpr);
+      var g = cv.getContext("2d");
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.globalCompositeOperation = "source-over";
+      g.globalAlpha = 1;
+      g.fillStyle = "#EDE7DC";
+      g.fillRect(0, 0, w, hh);
+
+      var pad = { l: 44, r: 12, t: 12, b: 26 };
+      var iw = w - pad.l - pad.r, ih = hh - pad.t - pad.b;
+      var maxX = Math.log10((D.corpus.maxStars || 1) + 1);
+      var maxY = Math.log10((D.corpus.maxDownloads || 1) + 1);
+      var X = function(v){ return pad.l + (Math.log10(v + 1) / maxX) * iw; };
+      var Y = function(v){ return pad.t + ih - (Math.log10(v + 1) / maxY) * ih; };
+
+      g.strokeStyle = "#D7CFC1"; g.lineWidth = 1;
+      g.font = "9px IBM Plex Mono, monospace"; g.fillStyle = "#8B8072";
+      var ticks = [0, 10, 100, 1000, 10000, 100000, 1000000];
+      for (var i = 0; i < ticks.length; i++){
+        var v = ticks[i];
+        if (Math.log10(v + 1) > maxX) break;
+        var x = Math.round(X(v)) + 0.5;
+        g.beginPath(); g.moveTo(x, pad.t); g.lineTo(x, pad.t + ih); g.stroke();
+        g.textAlign = "center"; g.fillText(shortNum(v), x, hh - 10);
+      }
+      for (var j = 0; j < ticks.length; j++){
+        var v2 = ticks[j];
+        if (Math.log10(v2 + 1) > maxY) break;
+        var y = Math.round(Y(v2)) + 0.5;
+        g.beginPath(); g.moveTo(pad.l, y); g.lineTo(pad.l + iw, y); g.stroke();
+        g.textAlign = "right"; g.fillText(shortNum(v2), pad.l - 7, y + 3);
+      }
+      g.strokeStyle = "#C2B8A6";
+      g.beginPath(); g.moveTo(pad.l + 0.5, pad.t); g.lineTo(pad.l + 0.5, pad.t + ih); g.stroke();
+      g.beginPath(); g.moveTo(pad.l, pad.t + ih + 0.5); g.lineTo(pad.l + iw, pad.t + ih + 0.5); g.stroke();
+
+      // Overlaps accumulate: hundreds of entries share the same (stars, downloads)
+      // pair, so a flat alpha would render them as one faint dot. Multiply blending
+      // turns coincidence into density without inventing positions.
+      pts = [];
+      var order = byId.slice().sort(function(a, b){ return (a.source === "git" ? 1 : 0) - (b.source === "git" ? 1 : 0); });
+      g.globalCompositeOperation = "multiply";
+      for (var k = 0; k < order.length; k++){
+        var p = order[k];
+        var x = X(p.stars || 0), y = Y(p.downloads || 0);
+        pts.push({ x: x, y: y, p: p });
+        g.fillStyle = p.source === "git" ? "rgba(192,138,46,.30)" : "rgba(76,110,124,.17)";
+        g.beginPath(); g.arc(x, y, p.source === "git" ? 2.1 : 1.7, 0, 6.2832); g.fill();
+      }
+      g.globalCompositeOperation = "source-over";
+      plot._geom = { pad: pad, iw: iw, ih: ih };
+    }
+
+    draw();
+    if (window.ResizeObserver){
+      var ro = new ResizeObserver(function(){ draw(); });
+      ro.observe(plot);
+    }
+
+    var raf = 0;
+    plot.addEventListener("mousemove", function(ev){
+      if (raf) return;
+      raf = requestAnimationFrame(function(){
+        raf = 0;
+        var r = plot.getBoundingClientRect();
+        var mx = ev.clientX - r.left, my = ev.clientY - r.top;
+        var best = null, bd = 260;
+        for (var i = 0; i < pts.length; i++){
+          var dx = pts[i].x - mx, dy = pts[i].y - my, dd = dx * dx + dy * dy;
+          if (dd < bd){ bd = dd; best = pts[i]; }
+        }
+        if (!best){ tip.className = "plot-tip"; return; }
+        var p = best.p;
+        tip.innerHTML = "<b>" + esc(p.name) + "</b><br>" + FMT.format(p.stars) + " ★ · " +
+          FMT.format(p.downloads) + " ↓ · " + p.age + " 天";
+        tip.style.left = Math.min(best.x + 12, plot.clientWidth - 150) + "px";
+        tip.style.top = Math.max(best.y - 40, 4) + "px";
+        tip.className = "plot-tip on";
+      });
+    });
+    plot.addEventListener("mouseleave", function(){ tip.className = "plot-tip"; });
+  }
+
+  function shortNum(v){
+    if (v === 0) return "0";
+    if (v >= 1000000) return (v / 1000000) + "M";
+    if (v >= 1000) return (v / 1000) + "k";
+    return String(v);
+  }
+
+  /* ---------------- histogram ---------------- */
+  function renderHist(){
+    var B = 16;
+    var max = Math.max(1, D.corpus.maxScore || 1);
+    var hi = Math.log10(max + 1);
+    var bins = new Array(B).fill(0);
+    for (var i = 0; i < byId.length; i++){
+      var v = Math.log10((byId[i].score || 0) + 1) / hi;
+      var idx = Math.min(B - 1, Math.max(0, Math.floor(v * B)));
+      bins[idx]++;
+    }
+    var top = Math.max.apply(null, bins) || 1;
+    var h = '<h3>热度分分布 · 对数分箱</h3><div class="hist-bars">';
+    for (var j = 0; j < B; j++){
+      var lo = Math.round(Math.pow(10, (j / B) * hi) - 1);
+      var hiV = Math.round(Math.pow(10, ((j + 1) / B) * hi) - 1);
+      h += '<i style="height:' + Math.max(1.5, (bins[j] / top) * 100).toFixed(1) + '%" title="' +
+        FMT.format(lo) + " – " + FMT.format(hiV) + " 分：" + FMT.format(bins[j]) + " 条" + '"></i>';
+    }
+    h += '</div><div class="hist-axis"><span>0</span><span>' + FMT.format(max) + "</span></div>";
+
+    var sorted = byId.map(function(p){ return p.score; }).sort(function(a, b){ return b - a; });
+    var totalAll = 0, top10 = 0, top100 = 0;
+    for (var m = 0; m < sorted.length; m++){
+      totalAll += sorted[m];
+      if (m < 10) top10 += sorted[m];
+      if (m < 100) top100 += sorted[m];
+    }
+    var busiest = 0, busiestAt = 0;
+    for (var n = 0; n < B; n++) if (bins[n] > busiest){ busiest = bins[n]; busiestAt = n; }
+    var lo0 = FMT.format(Math.round(Math.pow(10, (busiestAt / B) * hi) - 1));
+    var hi0 = FMT.format(Math.round(Math.pow(10, ((busiestAt + 1) / B) * hi) - 1));
+
+    h += '<p class="hist-note">中位 <b>' + FMT.format(medianScore()) + '</b> 分，最高 <b>' + FMT.format(max) +
+      "</b> 分。最挤的一箱是 " + lo0 + "–" + hi0 + "，装了 <b>" + FMT.format(busiest) + "</b> 条（" +
+      Math.round((busiest / sorted.length) * 100) + "%）。" +
+      "前 10 名拿走总热度的 <b>" + ((top10 / totalAll) * 100).toFixed(0) + "%</b>，前 100 名拿走 <b>" +
+      ((top100 / totalAll) * 100).toFixed(0) + "%</b>。</p>";
+    el("hist").innerHTML = h;
+  }
+  function medianScore(){
+    var s = byId.map(function(p){ return p.score; }).sort(function(a, b){ return a - b; });
+    return s.length ? s[Math.floor(s.length / 2)] : 0;
+  }
+
+  /* ---------------- chips + controls ---------------- */
+  function renderChips(){
+    var h = '<span class="lbl">标签</span>';
+    var ls = (D.labels || []).slice().sort(function(a, b){ return b.count - a.count; });
+    for (var i = 0; i < ls.length; i++){
+      h += '<button class="chip" data-label="' + esc(ls[i].id) + '" aria-pressed="' + (state.label === ls[i].id) + '">' +
+        esc(ls[i].zh) + "<b>" + FMT.format(ls[i].count) + "</b></button>";
+    }
+    el("chips").innerHTML = h;
+  }
+
+  function wireControls(){
+    var ctl = el("controls");
+    var setH = function(){
+      document.documentElement.style.setProperty("--ctl-h", ctl.offsetHeight + "px");
+    };
+    setH();
+    if (window.ResizeObserver) new ResizeObserver(setH).observe(ctl);
+    else window.addEventListener("resize", setH);
+
+    el("q").addEventListener("input", debounce(function(e){
+      state.q = e.target.value.trim().toLowerCase(); renderTable(true);
+    }, 110));
+
+    document.addEventListener("click", function(e){
+      var t = e.target.closest("[data-cat],[data-label],[data-src],[data-sort]");
+      if (!t) return;
+      if (t.hasAttribute("data-cat")){
+        var id = t.getAttribute("data-cat");
+        state.cat = (state.cat === id) ? "all" : id;
+        syncCats();
+      } else if (t.hasAttribute("data-label")){
+        var lb = t.getAttribute("data-label");
+        state.label = (state.label === lb) ? "all" : lb;
+        renderChips();
+      } else if (t.hasAttribute("data-src")){
+        state.src = t.getAttribute("data-src");
+        syncSrc();
+      } else if (t.hasAttribute("data-sort")){
+        var k = t.getAttribute("data-sort");
+        if (state.sort === k) state.dir = -state.dir;
+        else { state.sort = k; state.dir = (k === "age") ? 1 : -1; }
+        syncSort();
+      } else return;
+      renderTable(true);
+      if (t.hasAttribute("data-cat")) scrollToTable();
+    });
+
+    el("more-btn").addEventListener("click", function(){ renderTable(false); });
+  }
+
+  function scrollToTable(){
+    var y = el("controls").getBoundingClientRect().top + window.pageYOffset - 2;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
+  function syncCats(){
+    var btns = el("cats").querySelectorAll("[data-cat]");
+    for (var i = 0; i < btns.length; i++){
+      btns[i].setAttribute("aria-pressed", String(btns[i].getAttribute("data-cat") === state.cat));
+    }
+  }
+  function syncSrc(){
+    var btns = el("src-group").querySelectorAll("[data-src]");
+    for (var i = 0; i < btns.length; i++){
+      btns[i].setAttribute("aria-pressed", String(btns[i].getAttribute("data-src") === state.src));
+    }
+  }
+  function syncSort(){
+    var ths = document.querySelectorAll("thead th[data-sort]");
+    for (var i = 0; i < ths.length; i++){
+      var on = ths[i].getAttribute("data-sort") === state.sort;
+      if (on) ths[i].setAttribute("aria-sort", state.dir === 1 ? "ascending" : "descending");
+      else ths[i].removeAttribute("aria-sort");
+    }
+  }
+
+  function debounce(fn, ms){
+    var t;
+    return function(e){ clearTimeout(t); t = setTimeout(function(){ fn(e); }, ms); };
+  }
+
+  /* ---------------- table ---------------- */
+  var view = [];
+  function filterSort(){
+    var q = state.q;
+    var out = [];
+    for (var i = 0; i < byId.length; i++){
+      var p = byId[i];
+      if (state.cat !== "all" && p.cat !== state.cat) continue;
+      if (state.label !== "all" && p.labels.indexOf(state.label) < 0) continue;
+      if (state.src !== "all" && p.source !== state.src) continue;
+      if (q && p._hay.indexOf(q) < 0) continue;
+      out.push(p);
+    }
+    var k = state.sort, dir = state.dir;
+    out.sort(function(a, b){
+      var d = (a[k] || 0) - (b[k] || 0);
+      if (d === 0) d = (b.score || 0) - (a.score || 0);
+      return d * dir;
+    });
+    return out;
+  }
+
+  function rowHtml(p, rank, i){
+    var dm = dominant(p.contrib);
+    var labels = "";
+    for (var j = 0; j < p.labels.length && j < 4; j++){
+      labels += '<span class="tag l-' + esc(p.labels[j]) + '">' + esc(p.labels[j]) + "</span>";
+    }
+    return '<tr>' +
+      '<td class="rank-cell">' + rank + "</td>" +
+      '<td><div class="pname-row"><a class="pname" href="' + esc(p.homepage || p.repo || "#") + '" target="_blank" rel="noopener">' +
+        esc(p.name) + "</a>" + srcMark(p.source) +
+        '<span class="pauthor">' + esc(p.author || "") + "</span></div>" +
+        '<div class="pdesc">' + esc(p.desc || "") + "</div>" +
+        '<div class="plabels">' + labels + "</div></td>" +
+      '<td class="cat-cell c-cat">' + esc(catZh(p.cat)) + "</td>" +
+      '<td class="c-anat"><div class="anat-track" title="' + esc(dm.term.zh) + "驱动 " + dm.pct.toFixed(0) + '%">' + anat(p.contrib) + "</div></td>" +
+      '<td class="num score-cell">' + FMT.format(p.score) + "</td>" +
+      '<td class="num stars-cell c-stars">' + FMT.format(p.stars) + "</td>" +
+      '<td class="num dl-cell c-dl">' + FMT.format(p.downloads) + "</td>" +
+      '<td class="num age-cell c-age">' + p.age + "d</td>" +
+    "</tr>";
+  }
+
+  function renderTable(reset){
+    view = filterSort();
+    if (reset){ state.shown = 0; el("tbody").innerHTML = ""; }
+    var from = state.shown, to = Math.min(view.length, from + state.PAGE);
+    var buf = [];
+    for (var i = from; i < to; i++) buf.push(rowHtml(view[i], i + 1, i));
+    el("tbody").insertAdjacentHTML("beforeend", buf.join(""));
+    state.shown = to;
+
+    el("empty").hidden = view.length > 0;
+    el("more").hidden = state.shown >= view.length;
+    if (state.shown < view.length) el("more-btn").textContent = "加载更多 · 余 " + FMT.format(view.length - state.shown) + " 条";
+
+    var bits = ["<b>" + FMT.format(view.length) + "</b> / " + FMT.format(byId.length) + " 条"];
+    if (state.cat !== "all") bits.push("分类 " + esc(catZh(state.cat)));
+    if (state.label !== "all") bits.push("标签 " + esc(state.label));
+    if (state.q) bits.push('"' + esc(state.q) + '"');
+    el("count").innerHTML = bits.join(" · ");
+    syncSort();
+  }
+})();
+</script>
+</body>
+</html>
